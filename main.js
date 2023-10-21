@@ -6,7 +6,7 @@ const productos = [
     { nombre: "agua micelar", precio: 3000 },
 ];
 
-const carrito = {};
+const carrito = [];
 let total = 0;
 
 function mostrarProductosDisponibles() {
@@ -17,16 +17,27 @@ function mostrarProductosDisponibles() {
     alert(productosDisponibles);
 }
 
+function mostrarCarrito() {
+    let productosEnCarrito = "Productos en tu carrito:\n";
+    carrito.forEach((item, index) => {
+        productosEnCarrito += `${index + 1}. ${item.nombre} - ${item.unidades} unidades - Total: ${item.unidades * item.precio}$\n`;
+    });
+    alert(productosEnCarrito);
+}
+
 function agregarProductoAlCarrito(producto, unidades) {
     const productoEncontrado = productos.find(p => p.nombre === producto);
 
     if (productoEncontrado) {
         const { nombre, precio } = productoEncontrado;
-        if (carrito[nombre]) {
-            carrito[nombre].unidades += unidades;
+
+        const productoEnCarrito = carrito.find(item => item.nombre === nombre);
+        if (productoEnCarrito) {
+            productoEnCarrito.unidades += unidades;
         } else {
-            carrito[nombre] = { unidades, precio };
+            carrito.push({ nombre, unidades, precio });
         }
+        
         total += unidades * precio;
         console.log(`Producto: ${nombre}, Unidades: ${unidades}, Total a pagar: ${unidades * precio}`);
     } else {
@@ -35,18 +46,34 @@ function agregarProductoAlCarrito(producto, unidades) {
 }
 
 function realizarCompra() {
-    if (Object.keys(carrito).length > 0) {
-        console.log("Gracias por la compra. Resumen de compra:");
-        for (const nombreProducto in carrito) {
-            if (carrito.hasOwnProperty(nombreProducto)) {
-                const { unidades, precio } = carrito[nombreProducto];
-                console.log(`Producto: ${nombreProducto}, Unidades: ${unidades}, Total a pagar: ${unidades * precio}`);
+    mostrarCarrito();
+
+    let continuarGestionCarrito = true;
+    while (continuarGestionCarrito) {
+        let gestion = prompt("¿Deseas eliminar o agregar más productos al carrito? (eliminar/agregar/nada)");
+        if (gestion === "eliminar") {
+            mostrarCarrito();
+            let productoAEliminar = parseInt(prompt("Ingresa el número del producto que deseas eliminar")) - 1;
+            if (productoAEliminar >= 0 && productoAEliminar < carrito.length) {
+                const productoEliminado = carrito.splice(productoAEliminar, 1)[0];
+                total -= productoEliminado.unidades * productoEliminado.precio;
+                console.log(`Has eliminado: ${productoEliminado.nombre}`);
+            } else {
+                alert("Número de producto inválido. No se eliminó ningún producto.");
             }
+        } else if (gestion === "agregar") {
+            mostrarProductosDisponibles();
+            let productoAAgregar = prompt("Agrega un producto a tu carrito");
+            let unidadesAAgregar = parseInt(prompt("¿Cuántas unidades quieres llevar?"));
+            agregarProductoAlCarrito(productoAAgregar, unidadesAAgregar);
+        } else {
+            continuarGestionCarrito = false;
         }
-        console.log(`El total a pagar por sus compras es: ${total}`);
-    } else {
-        console.log("No se agregaron productos al carrito. ¡Hasta pronto!");
     }
+
+    mostrarCarrito();
+    console.log(`El total a pagar por tus compras es: ${total}`);
+    alert("Gracias por tu compra, ¡vuelve pronto!");
 }
 
 function iniciarCompra() {
@@ -54,37 +81,31 @@ function iniciarCompra() {
 
     while (continuarComprando) {
         mostrarProductosDisponibles();
-        let producto = prompt("Agregue un producto a su carrito");
-        if (!producto) {
-            alert("Debe ingresar un producto.");
-            continue;
-        }
-        let unidades = parseInt(prompt("¿Cuántas unidades quiere llevar?"));
+        let producto = prompt("Agrega un producto a tu carrito");
+        let unidades = parseInt(prompt("¿Cuántas unidades quieres llevar?"));
+
         if (isNaN(unidades) || unidades <= 0) {
-            alert("La cantidad debe ser un número positivo.");
+            alert("Por favor, ingresa una cantidad válida.");
             continue;
         }
+
         agregarProductoAlCarrito(producto, unidades);
 
-        let respuesta = prompt("¿Desea seguir comprando? (si o no)");
-        if (respuesta && respuesta.toLowerCase() !== "si") {
+        let respuesta = prompt("¿Deseas seguir comprando? (si o no)");
+        if (respuesta.toLowerCase() !== "si") {
             continuarComprando = false;
-        } else {
-            alert("¡gracias por visitarnos! ¡Hasta Pronto!")
         }
-
-        
     }
 
     realizarCompra();
 }
 
 function iniciarPrograma() {
-    let seleccion = prompt("Hola, ¿desea comprar algún producto? (si o no)");
-    if (seleccion && seleccion.toLowerCase() === "si") {
+    let seleccion = prompt("Hola, ¿deseas comprar algún producto? (si o no)");
+    if (seleccion.toLowerCase() === "si") {
         iniciarCompra();
     } else {
-        alert("¡Gracias por visitarnos! ¡Hasta pronto!");
+        console.log("¡Gracias por visitarnos! ¡Hasta pronto!");
     }
 }
 
