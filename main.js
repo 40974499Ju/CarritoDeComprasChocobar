@@ -1,3 +1,11 @@
+document.getElementById("mostrar-productos").addEventListener("click", function() {
+    mostrarProductosDisponibles();
+});
+
+document.getElementById("realizar-compra").addEventListener("click", function() {
+    iniciarCompra();
+});
+
 const productos = [
     { nombre: "serum rellenador", precio: 10300 },
     { nombre: "protector solar", precio: 17000 },
