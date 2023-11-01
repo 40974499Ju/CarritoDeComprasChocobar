@@ -1,9 +1,9 @@
-document.getElementById("mostrar-productos").addEventListener("click", function() {
-    mostrarProductosDisponibles();
+document.getElementById("mostrar-productos").addEventListener("click", function () {
+    finalizarCompra();
 });
 
-document.getElementById("realizar-compra").addEventListener("click", function() {
-    iniciarCompra();
+document.getElementById("eliminar-producto").addEventListener("click", function () {
+    eliminarProductoSeleccionado();
 });
 
 const productos = [
@@ -18,100 +18,111 @@ const carrito = [];
 let total = 0;
 
 function mostrarProductosDisponibles() {
-    let productosDisponibles = "Productos disponibles:\n";
+    const productosLista = document.getElementById("lista-productos");
+    productosLista.innerHTML = "";
+
     productos.forEach((producto, index) => {
-        productosDisponibles += `${index + 1}. ${producto.nombre} - ${producto.precio}$\n`;
+        const listItem = document.createElement("li");
+        listItem.dataset.id = index;
+        listItem.textContent = `${producto.nombre} - $${producto.precio}`;
+
+        const addButton = document.createElement("button");
+        addButton.textContent = "Agregar al carrito";
+        addButton.classList.add("agregar");
+        addButton.addEventListener("click", () => agregarProductoAlCarrito(index));
+
+        listItem.appendChild(addButton);
+        productosLista.appendChild(listItem);
     });
-    alert(productosDisponibles);
 }
 
 function mostrarCarrito() {
-    let productosEnCarrito = "Productos en tu carrito:\n";
+    const carritoLista = document.getElementById("carrito");
+    carritoLista.innerHTML = "";
+
     carrito.forEach((item, index) => {
-        productosEnCarrito += `${index + 1}. ${item.nombre} - ${item.unidades} unidades - Total: ${item.unidades * item.precio}$\n`;
+        const listItem = document.createElement("li");
+        listItem.textContent = `${item.nombre} - ${item.unidades} unidades - Total: $${item.unidades * item.precio}`;
+
+        const eliminarButton = document.createElement("button");
+        eliminarButton.textContent = "Eliminar";
+        eliminarButton.classList.add("eliminar");
+        eliminarButton.addEventListener("click", () => eliminarProducto(index));
+
+        listItem.appendChild(eliminarButton);
+        carritoLista.appendChild(listItem);
     });
-    alert(productosEnCarrito);
+
+    const mensaje = document.getElementById("mensaje");
+    mensaje.textContent = `El total a pagar por tus compras es: $${total}`;
 }
 
-function agregarProductoAlCarrito(producto, unidades) {
-    const productoEncontrado = productos.find(p => p.nombre === producto);
+function eliminarProducto(index) {
+    const productoEliminado = carrito.splice(index, 1)[0];
+    total -= productoEliminado.unidades * productoEliminado.precio;
+    guardarCarritoLocalStorage();
+    mostrarCarrito();
+}
 
-    if (productoEncontrado) {
-        const { nombre, precio } = productoEncontrado;
+function agregarProductoAlCarrito(index) {
+    const producto = productos[index];
+    if (producto) {
+        const { nombre, precio } = producto;
 
         const productoEnCarrito = carrito.find(item => item.nombre === nombre);
         if (productoEnCarrito) {
-            productoEnCarrito.unidades += unidades;
+            productoEnCarrito.unidades += 1;
         } else {
-            carrito.push({ nombre, unidades, precio });
+            carrito.push({ nombre, unidades: 1, precio });
         }
-        
-        total += unidades * precio;
-        console.log(`Producto: ${nombre}, Unidades: ${unidades}, Total a pagar: ${unidades * precio}`);
+
+        total += precio;
+        mostrarCarrito();
+        guardarCarritoLocalStorage();
     } else {
-        alert("Producto no disponible.");
+        const mensaje = document.getElementById("mensaje");
+        mensaje.textContent = "Producto no disponible.";
     }
 }
 
-function realizarCompra() {
-    mostrarCarrito();
-
-    let continuarGestionCarrito = true;
-    while (continuarGestionCarrito) {
-        let gestion = prompt("¿Deseas eliminar o agregar más productos al carrito? (eliminar/agregar/nada)");
-        if (gestion === "eliminar") {
-            mostrarCarrito();
-            let productoAEliminar = parseInt(prompt("Ingresa el número del producto que deseas eliminar")) - 1;
-            if (productoAEliminar >= 0 && productoAEliminar < carrito.length) {
-                const productoEliminado = carrito.splice(productoAEliminar, 1)[0];
-                total -= productoEliminado.unidades * productoEliminado.precio;
-                console.log(`Has eliminado: ${productoEliminado.nombre}`);
-            } else {
-                alert("Número de producto inválido. No se eliminó ningún producto.");
-            }
-        } else if (gestion === "agregar") {
-            mostrarProductosDisponibles();
-            let productoAAgregar = prompt("Agrega un producto a tu carrito");
-            let unidadesAAgregar = parseInt(prompt("¿Cuántas unidades quieres llevar?"));
-            agregarProductoAlCarrito(productoAAgregar, unidadesAAgregar);
-        } else {
-            continuarGestionCarrito = false;
-        }
-    }
-
-    mostrarCarrito();
-    console.log(`El total a pagar por tus compras es: ${total}`);
-    alert("Gracias por tu compra, ¡vuelve pronto!");
+function guardarCarritoLocalStorage() {
+    const carritoJSON = JSON.stringify(carrito);
+    localStorage.setItem('carrito', carritoJSON);
+    localStorage.setItem('total', total);
 }
 
-function iniciarCompra() {
-    let continuarComprando = true;
+function cargarCarritoLocalStorage() {
+    const carritoGuardadoJSON = localStorage.getItem('carrito');
+    const totalGuardado = parseFloat(localStorage.getItem('total'));
 
-    while (continuarComprando) {
-        mostrarProductosDisponibles();
-        let producto = prompt("Agrega un producto a tu carrito");
-        let unidades = parseInt(prompt("¿Cuántas unidades quieres llevar?"));
-
-        if (isNaN(unidades) || unidades <= 0) {
-            alert("Por favor, ingresa una cantidad válida.");
-            continue;
-        }
-
-        agregarProductoAlCarrito(producto, unidades);
-
-        let respuesta = prompt("¿Deseas seguir comprando? (si o no)");
-        if (respuesta.toLowerCase() !== "si") {
-            continuarComprando = false;
-        }
+    if (carritoGuardadoJSON) {
+        carrito.push(...JSON.parse(carritoGuardadoJSON));
+        total = totalGuardado;
     }
+}
 
-    realizarCompra();
+function eliminarProductoSeleccionado() {
+    mostrarCarrito();
+    const mensaje = document.getElementById("mensaje");
+    mensaje.textContent = "Haz clic en el botón 'Eliminar' del producto que deseas eliminar del carrito.";
+}
+
+function finalizarCompra() {
+    mostrarCarrito();
+    mostrarTotalCompras();
+}
+
+function mostrarTotalCompras() {
+    const totalCompras = document.getElementById("total-compras");
+    totalCompras.textContent = `Total de compras: $${total}`;
 }
 
 function iniciarPrograma() {
+    cargarCarritoLocalStorage();
+
     let seleccion = prompt("Hola, ¿deseas comprar algún producto? (si o no)");
     if (seleccion.toLowerCase() === "si") {
-        iniciarCompra();
+        mostrarProductosDisponibles();
     } else {
         console.log("¡Gracias por visitarnos! ¡Hasta pronto!");
     }
