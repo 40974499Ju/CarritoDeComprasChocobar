@@ -56,20 +56,19 @@ body {
     justify-content: space-between;
   }
   #mostrar-productos {
-    background-color: #28a745
+    background-color: #28a745; /* Agrega un punto y coma aquí */
     border: none;
     border-radius: 5px;
     cursor: pointer;
     padding: 10px 20px;
-    background-color: #007BFF
-   
-  }
+    background-color: #007BFF;
+}
+
 
   #realizar-compra {
-    background-color: #28a745
+    background-color: #28a745; /* Agrega un punto y coma aquí */
     border: none;
     border-radius: 5px;
     cursor: pointer;
     padding: 10px 20px;
-    background-color: #007BFF
-  }
+}
