@@ -1,5 +1,5 @@
 document.getElementById("mostrar-productos").addEventListener("click", function () {
-    finalizarCompra();
+    mostrarProductosDisponibles();
 });
 
 document.getElementById("eliminar-producto").addEventListener("click", function () {
@@ -107,25 +107,9 @@ function eliminarProductoSeleccionado() {
     mensaje.textContent = "Haz clic en el botón 'Eliminar' del producto que deseas eliminar del carrito.";
 }
 
-function finalizarCompra() {
-    mostrarCarrito();
-    mostrarTotalCompras();
-}
-
-function mostrarTotalCompras() {
-    const totalCompras = document.getElementById("total-compras");
-    totalCompras.textContent = `Total de compras: $${total}`;
-}
-
 function iniciarPrograma() {
     cargarCarritoLocalStorage();
-
-    let seleccion = prompt("Hola, ¿deseas comprar algún producto? (si o no)");
-    if (seleccion.toLowerCase() === "si") {
-        mostrarProductosDisponibles();
-    } else {
-        console.log("¡Gracias por visitarnos! ¡Hasta pronto!");
-    }
+    mostrarProductosDisponibles();
 }
 
 iniciarPrograma();
