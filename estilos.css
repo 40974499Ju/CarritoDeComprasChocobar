@@ -1,81 +1,10 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f0f0f0;
-    text-align: center;
-  }
-  
-  h1 {
-    background-color: #87CEEB;
-    color: #201e1e;
-    padding: 10px 0;
-  }
-  
-  #lista-productos {    
-    list-style: none;
-    padding: 0;
-  }
-  
-  #lista-productos li {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    margin: 5px;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .agregar {
-    background-color: #ace6ac;
-    color: #353333;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-  
-  .agregar:hover {
-    background-color: #45a049;
-  }
-  
-  h2 {
-    margin-top: 20px;
-  }
-  
-  #carrito {
-    list-style: none;
-    padding: 0;
-  }
-  
-  #carrito li {
-    background-color: #f5f5f5;
-    border: 1px solid #ddd;
-    margin: 5px;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-  }
-  #mostrar-productos {
-    background-color: #28a745; 
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    padding: 10px 20px;
-    background-color: #6eb380;
-}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 
-
-  #realizar-compra {
-    background-color: #6eb380; 
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    padding: 10px 20px;
 }
- #eliminar-producto {
-  background-color: #6eb380; 
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    padding: 10px 20px;
+html{
+  font-size: 62.5%;
 }
