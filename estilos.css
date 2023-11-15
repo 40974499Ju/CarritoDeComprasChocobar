@@ -20,6 +20,8 @@ html {
   background-color: #f5f5f5;
   margin-bottom: 30px;
   color: #333;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .grid {
@@ -95,4 +97,9 @@ h1 {
 .info button:hover{
   background-color: #2da0c3;
   transition: all .3s;
+}
+
+.container nav i {
+  font-size: 3rem;
+  cursor: pointer;
 }
