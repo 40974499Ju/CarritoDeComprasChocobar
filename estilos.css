@@ -24,11 +24,13 @@ html {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 280px);
+  grid-template-columns: repeat(auto-fit,minmax(280px,280px));
   margin: auto;
   max-width: 1100px;
   gap: 20px;
   justify-content: center;
+  padding-bottom: 50px;
+
 
 
 }
@@ -58,7 +60,7 @@ h1 {
   font-size: 1.6rem;
 }
 .info p{
-  font-size: 1.8rem;
+  font-size: 1.5rem;
 
 }
 .precio p:first-child {
@@ -89,4 +91,8 @@ h1 {
   border-radius: 5px;
   cursor: pointer;
   margin-bottom: 5px;
+}
+.info button:hover{
+  background-color: #2da0c3;
+  transition: all .3s;
 }
