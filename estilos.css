@@ -72,4 +72,21 @@ h1 {
 }
 .precio p {
   font-size: 1.8rem;
+} 
+.info h3 .info p {
+  color: #222;
+  margin-bottom: 15px;
+}
+.info button {
+  padding: 1rem;
+  width: 100%;
+  background-color: #33c3f0;
+  border: none;
+  outline: none;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 5px;
 }
