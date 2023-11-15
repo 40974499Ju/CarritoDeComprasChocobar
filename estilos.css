@@ -103,3 +103,44 @@ h1 {
   font-size: 3rem;
   cursor: pointer;
 }
+.nav-card{
+  display: none;
+}
+.container nav button {
+  display: none;
+}
+.container nav i:hover > .buy-card {
+  width: 400px;
+  height: 400px;
+  position: absolute;
+  right: 0;
+  background-color: #fff;
+}
+.container nav i:hover .nav-card {
+  font-size: 1.4rem;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 10px 0 10px;
+  border-bottom: solid thin #e1e1e1;
+}
+
+.nav-card li {
+  list-style: none;
+  padding: 1rem;
+  font-weight:bold ;
+}
+.container nav i:hover .buy-card > button {
+  display: block;
+  width: 90%;
+  padding: 1rem;
+  margin: 10px auto;
+  background-color: transparent;
+  border: solid thin #e1e1e1;
+  color: #494848;
+  cursor: pointer;
+}
+
+.container nav i:hover .buy-card > button:hover {
+  border: solid thin #494848;
+  transition: all .4s;
+}
