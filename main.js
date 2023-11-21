@@ -1,115 +1,70 @@
-document.getElementById("mostrar-productos").addEventListener("click", function () {
-    mostrarProductosDisponibles();
-});
-
-document.getElementById("eliminar-producto").addEventListener("click", function () {
-    eliminarProductoSeleccionado();
-});
-
-const productos = [
-    { nombre: "serum rellenador", precio: 10300 },
-    { nombre: "protector solar", precio: 17000 },
-    { nombre: "crema hidratante", precio: 6400 },
-    { nombre: "gel limpiador", precio: 6800 },
-    { nombre: "agua micelar", precio: 3000 },
-];
-
-const carrito = [];
-let total = 0;
-
-function mostrarProductosDisponibles() {
-    const productosLista = document.getElementById("lista-productos");
-    productosLista.innerHTML = "";
-
-    productos.forEach((producto, index) => {
-        const listItem = document.createElement("li");
-        listItem.dataset.id = index;
-        listItem.textContent = `${producto.nombre} - $${producto.precio}`;
-
-        const addButton = document.createElement("button");
-        addButton.textContent = "Agregar al carrito";
-        addButton.classList.add("agregar");
-        addButton.addEventListener("click", () => agregarProductoAlCarrito(index));
-
-        listItem.appendChild(addButton);
-        productosLista.appendChild(listItem);
-    });
-}
-
-function mostrarCarrito() {
-    const carritoLista = document.getElementById("carrito");
-    carritoLista.innerHTML = "";
-
-    carrito.forEach((item, index) => {
-        const listItem = document.createElement("li");
-        listItem.textContent = `${item.nombre} - ${item.unidades} unidades - Total: $${item.unidades * item.precio}`;
-
-        const eliminarButton = document.createElement("button");
-        eliminarButton.textContent = "Eliminar";
-        eliminarButton.classList.add("eliminar");
-        eliminarButton.addEventListener("click", () => eliminarProducto(index));
-
-        listItem.appendChild(eliminarButton);
-        carritoLista.appendChild(listItem);
-    });
-
-    const mensaje = document.getElementById("mensaje");
-    mensaje.textContent = `El total a pagar por tus compras es: $${total}`;
-}
-
-function eliminarProducto(index) {
-    const productoEliminado = carrito.splice(index, 1)[0];
-    total -= productoEliminado.unidades * productoEliminado.precio;
-    guardarCarritoLocalStorage();
-    mostrarCarrito();
-}
-
-function agregarProductoAlCarrito(index) {
-    const producto = productos[index];
-    if (producto) {
-        const { nombre, precio } = producto;
-
-        const productoEnCarrito = carrito.find(item => item.nombre === nombre);
-        if (productoEnCarrito) {
-            productoEnCarrito.unidades += 1;
-        } else {
-            carrito.push({ nombre, unidades: 1, precio });
-        }
-
-        total += precio;
-        mostrarCarrito();
-        guardarCarritoLocalStorage();
-    } else {
-        const mensaje = document.getElementById("mensaje");
-        mensaje.textContent = "Producto no disponible.";
+document.addEventListener('DOMContentLoaded', function () {
+    const cartItems = [];
+  
+    function updateCart() {
+      const cartContainer = document.querySelector('.buy-card ul.nav-card');
+      cartContainer.innerHTML = ''; // Limpiar contenido actual
+  
+      let total = 0;
+  
+      cartItems.forEach(item => {
+        const cartItem = document.createElement('li');
+        cartItem.innerHTML = `
+          <li>${item.name}</li>
+          <li>${item.price}</li>
+          <li>${item.quantity}</li>
+          <li><button class="remove-item" data-id="${item.id}">Eliminar</button></li>
+        `;
+  
+        cartContainer.appendChild(cartItem);
+        total += item.price * item.quantity;
+      });
+  
+      // Mostrar total
+      const totalElement = document.createElement('li');
+      totalElement.textContent = `Total: $${total}`;
+      cartContainer.appendChild(totalElement);
     }
-}
-
-function guardarCarritoLocalStorage() {
-    const carritoJSON = JSON.stringify(carrito);
-    localStorage.setItem('carrito', carritoJSON);
-    localStorage.setItem('total', total);
-}
-
-function cargarCarritoLocalStorage() {
-    const carritoGuardadoJSON = localStorage.getItem('carrito');
-    const totalGuardado = parseFloat(localStorage.getItem('total'));
-
-    if (carritoGuardadoJSON) {
-        carrito.push(...JSON.parse(carritoGuardadoJSON));
-        total = totalGuardado;
+  
+    function addToCart(id, name, price) {
+      const existingItem = cartItems.find(item => item.id === id);
+  
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cartItems.push({ id, name, price, quantity: 1 });
+      }
+  
+      updateCart();
     }
-}
-
-function eliminarProductoSeleccionado() {
-    mostrarCarrito();
-    const mensaje = document.getElementById("mensaje");
-    mensaje.textContent = "Haz clic en el botón 'Eliminar' del producto que deseas eliminar del carrito.";
-}
-
-function iniciarPrograma() {
-    cargarCarritoLocalStorage();
-    mostrarProductosDisponibles();
-}
-
-iniciarPrograma();
+  
+    function removeFromCart(id) {
+      const index = cartItems.findIndex(item => item.id === id);
+  
+      if (index !== -1) {
+        cartItems.splice(index, 1);
+        updateCart();
+      }
+    }
+  
+    function clearCart() {
+      cartItems.length = 0;
+      updateCart();
+    }
+  
+    document.addEventListener('click', function (event) {
+      if (event.target.classList.contains('remove-item')) {
+        const itemId = parseInt(event.target.getAttribute('data-id'));
+        removeFromCart(itemId);
+      } else if (event.target.classList.contains('add-to-cart')) {
+        const itemId = parseInt(event.target.getAttribute('data-id'));
+        const itemName = event.target.parentElement.querySelector('h3').textContent;
+        const itemPrice = parseFloat(event.target.parentElement.querySelector('.precio p:first-child').textContent.slice(1));
+  
+        addToCart(itemId, itemName, itemPrice);
+      } else if (event.target.classList.contains('clear-cart')) {
+        clearCart();
+      }
+    });
+  });
+  
