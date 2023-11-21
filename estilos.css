@@ -144,3 +144,30 @@ h1 {
   border: solid thin #494848;
   transition: all .4s;
 }
+
+.lista_de_biografias {
+  display: none;
+  text-align: center;
+  padding: 10px 0 0 0;
+  border-top: solid thin gray ;
+}
+.container nav i:hover .buy-card > .lista_de_biografias {
+  display: flex;
+}
+.lista_de_biografias img {
+  width: 100px;
+}
+.lista_de_biografias p {
+  width: 300px;
+  font-size: 1.3rem;
+
+} 
+.lista_de_biografias p:nth-child(4) {
+  padding-left: 40px;
+}
+.lista_de_biografias p:last-child span {
+  background-color: red;
+  border-radius: 50%;
+  padding: 5px 10px;
+  color: #fff;
+}
