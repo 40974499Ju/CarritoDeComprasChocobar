@@ -10,10 +10,13 @@ document.addEventListener('DOMContentLoaded', function () {
       cartItems.forEach(item => {
         const cartItem = document.createElement('li');
         cartItem.innerHTML = `
-          <li>${item.name}</li>
-          <li>${item.price}</li>
-          <li>${item.quantity}</li>
-          <li><button class="remove-item" data-id="${item.id}">Eliminar</button></li>
+          <div class="lista_de_biografias">
+            <img src="${item.image}" alt="${item.name}">
+            <p>${item.name}</p>
+            <p>$${item.price}</p>
+            <p>Cantidad: ${item.quantity}</p>
+            <p><button class="remove-item" data-id="${item.id}">Eliminar</button></p>
+          </div>
         `;
   
         cartContainer.appendChild(cartItem);
@@ -26,13 +29,13 @@ document.addEventListener('DOMContentLoaded', function () {
       cartContainer.appendChild(totalElement);
     }
   
-    function addToCart(id, name, price) {
+    function addToCart(id, name, price, image) {
       const existingItem = cartItems.find(item => item.id === id);
   
       if (existingItem) {
         existingItem.quantity += 1;
       } else {
-        cartItems.push({ id, name, price, quantity: 1 });
+        cartItems.push({ id, name, price, quantity: 1, image });
       }
   
       updateCart();
@@ -60,8 +63,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const itemId = parseInt(event.target.getAttribute('data-id'));
         const itemName = event.target.parentElement.querySelector('h3').textContent;
         const itemPrice = parseFloat(event.target.parentElement.querySelector('.precio p:first-child').textContent.slice(1));
+        const itemImage = event.target.parentElement.querySelector('img').src;
   
-        addToCart(itemId, itemName, itemPrice);
+        addToCart(itemId, itemName, itemPrice, itemImage);
       } else if (event.target.classList.contains('clear-cart')) {
         clearCart();
       }
