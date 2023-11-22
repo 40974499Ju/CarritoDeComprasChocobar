@@ -1,154 +1,163 @@
-    <!DOCTYPE html>
-    <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+		<title>BiografiasF1</title>
+		<link rel="stylesheet" href="/estilos.css"/>
+	</head>
+	<body>
+		<header>
+			<h1>Pilotos de exito:Biografias de estrellas de la formula 1.</h1>
 
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>BiografiasF1</title>
-      <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet" />
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-      <link rel="stylesheet" href="/estilos.css">
-    </head>
+			<div class="container-icon">
+				<div class="container-cart-icon">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						class="icon-cart"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+						/>
+					</svg>
+					<div class="count-products">
+						<span id="contador-productos">0</span>
+					</div>
+				</div>
 
-    <body>
-      <div class="container">
-        <nav>
-          <i class="bi bi-cart2">
-            <div class="buy-card">
-              <ul class="nav-card">
-                <li>Imagen</li>
-                <li>Nombre</li>
-                <li>Precio</li>
-                <li>Cantidad</li>
-                <li></li>
+				<div class="container-cart-products hidden-cart">
+					<div class="row-product hidden">
+						<div class="cart-product">
+							<div class="info-cart-product">
+								<span class="cantidad-producto-carrito">1</span>
+								<p class="titulo-producto-carrito">Zapatos Nike</p>
+								<span class="precio-producto-carrito">$80</span>
+							</div>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke-width="1.5"
+								stroke="currentColor"
+								class="icon-close"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M6 18L18 6M6 6l12 12"
+								/>
+							</svg>
+						</div>
+					</div>
 
-              </ul>
-            
-              <button class="clear-cart" data-id="clear">Vaciar carrito</button>
-            </div>
-          </i>
-        </nav>
-        <h1>Pilotos de exito:Biografias de estrellas de la formula 1.</h1>
-        <div class="grid">
-          <div class="items" data-id="1">
-            <img src="/img/Juan-Manuel-Fangio.jpg" alt="">
-            <div class="info">
-              <h3>Juan Manuel Fangio</h3>
-              <p>Cinco titulos mundiales</p>
-              <div class="precio">
-                <p>$10500</p>
-                
-              </div>
-              <button class="add-to-cart" data-id="1" data-title="Juan Manuel Fangio" data-price="10500" data-image="/img/Juan-Manuel-Fangio.jpg">AGREGAR AL CARRITO</button>
-            </div>
-          </div>
-          <div class="items" data-id="2">
-            <img src="/img/ayrton.jpg" alt="">
-            <div class="info">
-              <h3>Ayrton Senna</h3>
-              <p>Tres tiulos mundiales</p>
-              <div class="precio">
-                <p>$9000</p>
-                
-              </div>
-              <button class="add-to-cart" data-id="2" data-title="Ayrton Senna" data-price="9000" data-image="/img/ayrton.jpg">AGREGAR AL CARRITO</button>
-            </div>
-          </div>
-          <div class="items" data-id="3">
-            <img src="/img/german-ferrari-driver-michael-schumacher-celebrates-on-the-news-photo-1568101141.jpg" alt="">
-            <div class="info">
-              <h3>Michael Schumacher</h3>
-              <p>Siete titulos mundiales</p>
-              <div class="precio">
-                <p>$9800</p>
-                
-              </div>
-              <button class="add-to-cart" data-id="3" data-title="Michael Schumacher" data-price="9800" data-image="/img/german-ferrari-driver-michael-schumacher-celebrates-on-the-news-photo-1568101141.jpg">"AGREGAR AL CARRITO</button>
-            </div>
-          </div>
-          <div class="items" data-id="4">
-            <img src="/img/jackie-stewart-blog-premium-eventosmotor-9-copia.jpg" alt="">
-            <div class="info">
-              <h3>Jackie Stewart</h3>
-              <p>Tres titulos mundiales</p>
-              <div class="precio">
-                <p>$6500</p>
-                
-              </div>
-              <button class="add-to-cart" data-id="4" data-title="Jackie Stewart" data-price="6500" data-image="/img/jackie-stewart-blog-premium-eventosmotor-9-copia.jpg" >AGREGAR AL CARRITO</button>
-            </div>
-          </div>
-          <div class="items" data-id="5">
-            <img src="/img/lewis-hamilton-mercedes-amg-2n-1.jpg" alt="">
-            <div class="info">
-              <h3>Lewis Hamilton</h3>
-              <p>Siete titulos mundiales</p>
-              <div class="precio">
-                <p>$7500</p>
-                
-              </div>
-              <button class="add-to-cart" data-id="5" data-title="Lewis Hamilton" data-price="7500" data-image="/img/lewis-hamilton-mercedes-amg-2n-1.jpg" >AGREGAR AL CARRITO</button>
-            </div>
-          </div>
-          <div class="items" data-id="6">
-            <img src="/img/niki-lauda-4-2000-aabec42eee124b7daebbb74241960552.jpg" alt="">
-            <div class="info">
-              <h3>Niki Lauda</h3>
-              <p>Tres titulos mundiales/p>
-              <div class="precio">
-                <p>$8000</p>
-                
-              </div>
-              <button class="add-to-cart" data-id="6" data-title="Niki Lauda" data-price="8000" data-image="/img/niki-lauda-4-2000-aabec42eee124b7daebbb74241960552.jpg">AGREGAR AL CARRITO</button>
-            </div>
-          </div>
-          <div class="items" data-id="7">
-            <img src="/img/8a294782-7203-4c60-8351-cff013c434d0_16-9-discover-aspect-ratio_default_0_x667y223.jpg" alt="">
-            <div class="info">
-              <h3>Fernando Alonso</h3>
-              <p>Dos titulos mundiales</p>
-              <div class="precio">
-                <p>$6500</p>
-                
-              </div>
-              <button class="add-to-cart" data-id="7" data-title="Fernando Alonso" data-price="6500" data-image="/img/8a294782-7203-4c60-8351-cff013c434d0_16-9-discover-aspect-ratio_default_0_x667y223.jpg" alt="">"AGREGAR AL CARRITO</button>
-            </div>
-          </div>
-          <div class="items" data-id="8">
-            <img src="/img/Jack-Brabham-Australian.webp" alt="">
-            <div class="info">
-              <h3>Jack Brabham</h3>
-              <p>Tres titulos mundiales</p>
-              <div class="precio">
-                <p>$6890</p>
-               
-              </div>
-              <button class="add-to-cart" data-id="8" data-title="Jack Brabham" data-price="6890" data-image="/img/Jack-Brabham-Australian.webp" >AGREGAR AL CARRITO</button>
-            </div>
-          </div>
-          <div class="items" data-id="9">
-            <img src="/img/f1-historia-prost-williams-1993.avif" alt="">
-            <div class="info">
-              <h3>Alain Prost</h3>
-              <p>Cuatro titulos mundiales</p>
-              <div class="precio">
-                <p>$5700</p>
-                
-              </div>
-              <button class="add-to-cart" data-id="9" data-title="Alain Prost" data-price="5700" data-image="/img/f1-historia-prost-williams-1993.avif">AGREGAR AL CARRITO</button>
-            </div>
-          </div>
-        </div>
-      </div>
+					<div class="cart-total hidden">
+						<h3>Total:</h3>
+						<span class="total-pagar">$200</span>
+					</div>
+					<p class="cart-empty">El carrito está vacío</p>
+				</div>
+			</div>
+		</header>
+		<div class="container-items">
+			<div class="item">
+				<figure>
+					<img
+						src="img/Juan-Manuel-Fangio.jpg"
+						alt="producto"
+					/>
+				</figure>
+				<div class="info-product">
+					<h2>Juan Manuel Fangio</h2>
+          
+					<p class="price">$10000</p>
+          
+					<button class="btn-add-cart">Añadir al carrito</button>
+				</div>
+			</div>
+			<div class="item">
+				<figure>
+					<img
+						src="img/ayrton.jpg"
+						alt="producto"
+					/>
+				</figure>
+				<div class="info-product">
+					<h2>Ayrton Senna</h2>
+          
+					<p class="price">$9000</p>
+					<button class="btn-add-cart">Añadir al carrito</button>
+				</div>
+			</div>
+			<div class="item">
+				<figure>
+					<img
+						src="img/german-ferrari-driver-michael-schumacher-celebrates-on-the-news-photo-1568101141.jpg"
+						alt="producto"
+					/>
+				</figure>
+				<div class="info-product">
+					<h2>Michael Schumacher</h2>
+          
+					<p class="price">$9800</p>
+					<button class="btn-add-cart">Añadir al carrito</button>
+				</div>
+			</div>
+			<div class="item">
+				<figure>
+					<img
+						src="img/jackie-stewart-blog-premium-eventosmotor-9-copia.jpg"
+						alt="producto"
+					/>
+				</figure>
+				<div class="info-product">
+					<h2>Jackie Stewart</h2>
+					<p class="price">$9000</p>
+					<button class="btn-add-cart">Añadir al carrito</button>
+				</div>
+			</div>
+			<div class="item">
+				<figure>
+					<img
+						src="img/lewis-hamilton-mercedes-amg-2n-1.jpg"
+						alt="producto"
+					/>
+				</figure>
+				<div class="info-product">
+					<h2>Lewis Hamilton</h2>
+          <p class="price">$7500</p>
+					<button class="btn-add-cart">Añadir al carrito</button>
+				</div>
 
-
-
-
-
+			</div>
+      <div class="item">
+				<figure>
+					<img
+						src="img/niki-lauda-4-2000-aabec42eee124b7daebbb74241960552.jpg"
+						alt="producto"
+					/>
+				</figure>
+				<div class="info-product">
+					<h2>Niki Lauda</h2>
+          <p class="price">$8000</p>
+					<button class="btn-add-cart">Añadir al carrito</button>
+				</div>
+        
+			</div>
+		</div>
+    
+  </div>
 
 
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-      <script src="/main.js"></script>
-    </body>
-
-    </html>
+		<script src="main.js"></script>
+	</body>
+</html>
