@@ -56,20 +56,7 @@ productsList.addEventListener('click', e => {
     }
 });
 
-function finalizarCompra() {
-    // Puedes realizar acciones adicionales aquí antes de finalizar la compra si es necesario
 
-    // Simplemente reiniciamos la lista de productos y actualizamos la interfaz
-   showHTML();
-
-    // También puedes agregar lógica adicional, como enviar la información a un servidor, procesar el pago, etc.
-
-    // Aquí podrías redirigir a una página de confirmación o hacer cualquier otra acción que desees después de finalizar la compra
-    alert("¡Compra finalizada! Gracias por tu compra.");
-
-    // Puedes redirigir a una página de confirmación o agradecimiento
-    // window.location.href = "pagina-de-confirmacion.html";
-}
 
 
 rowProduct.addEventListener('click', e => {
